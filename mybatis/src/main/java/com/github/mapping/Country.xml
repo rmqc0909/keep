@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.mapper.CountryMapper">
+
+    <!-- 通过id查询country信息 -->
+    <select id="getCountryById" resultType="com.github.bean.Country">
+        select id, country_name, country_code from country where id = #{id}
+    </select>
+
+    <!-- 批量插入country表 -->
+    <insert id="insertList" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        INSERT INTO country (country_name,country_code )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.countryName},#{item.countryCode})
+        </foreach>
+    </insert>
+
+</mapper>
